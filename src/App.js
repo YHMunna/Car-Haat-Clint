@@ -6,6 +6,8 @@ import Register from "./Components/Login/Register";
 import Purchase from "./Components/Purchase/Purchase";
 import AuthProvider from "./Context/AuthProvider";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import ExploreShop from "./Components/ExploreShop/ExploreShop";
+import Dashboard from "./Components/Dashboard/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -18,9 +20,15 @@ function App() {
           <Route path="/home">
             <Home />
           </Route>
+          <Route path="/shop">
+            <ExploreShop></ExploreShop>
+          </Route>
           <PrivateRoute path="/purchase">
             <Purchase></Purchase>
           </PrivateRoute>
+          <Route path="/dashboard">
+            <Dashboard></Dashboard>
+          </Route>
           <Route path="/login">
             <Login></Login>
           </Route>

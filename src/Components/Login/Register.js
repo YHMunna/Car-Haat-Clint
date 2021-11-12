@@ -29,7 +29,13 @@ const Register = () => {
     if (registerData.password !== registerData.password2) {
       alert("password didn't match");
     }
-    registerUser(registerData.email, registerData.password, location, history);
+    registerUser(
+      registerData.name,
+      registerData.email,
+      registerData.password,
+      location,
+      history
+    );
 
     e.preventDefault();
   };
@@ -42,6 +48,16 @@ const Register = () => {
           </Typography>
           {!loading && (
             <form onSubmit={handleRegisterSubmit}>
+              <TextField
+                onChange={handleOnChange}
+                sx={{ width: "90%", marginBottom: "10px" }}
+                id="standard-basic"
+                label="Name"
+                variant="standard"
+                type="text"
+                name="name"
+              />
+              <br />
               <TextField
                 onChange={handleOnChange}
                 sx={{ width: "90%", marginBottom: "10px" }}

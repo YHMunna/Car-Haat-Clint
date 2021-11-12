@@ -6,6 +6,9 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 
 //initialize firebase app
@@ -15,16 +18,40 @@ const UseFirebase = () => {
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState("");
   const auth = getAuth();
-
+  const googleProvider = new GoogleAuthProvider();
+  //google sign in
+  const signInWithGoogle = (location, history) => {
+    setLoading(true);
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const destination = location?.state?.from || "/";
+        history.replace(destination);
+        const user = result.user;
+        setAuthError("");
+      })
+      .catch((error) => {
+        setAuthError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   //register
-  const registerUser = (email, password, location, history) => {
+  const registerUser = (name, email, password, location, history) => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const destination = location.state.from || "/";
-        history.replace(destination);
-        const user = userCredential.user;
+        const newUser = { email, displayName: name };
+        setUser(newUser);
         setAuthError("");
+        //updateprofile
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch((error) => {});
+        const destination = location?.state?.from || "/";
+        history.replace(destination);
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -62,7 +89,8 @@ const UseFirebase = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }; //updateprofile
+
   //observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -83,6 +111,7 @@ const UseFirebase = () => {
     loginUser,
     loading,
     authError,
+    signInWithGoogle,
   };
 };
 export default UseFirebase;

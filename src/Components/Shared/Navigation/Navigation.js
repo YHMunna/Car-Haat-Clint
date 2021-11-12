@@ -17,10 +17,26 @@ const Navigation = () => {
           <Nav className="me-auto">
             <NavLink
               style={{ textDecoration: "none", marginRight: "5px" }}
+              to="/shop"
+            >
+              <Button variant="contained" color="inherit">
+                Car Shop
+              </Button>
+            </NavLink>
+            <NavLink
+              style={{ textDecoration: "none", marginRight: "5px" }}
               to="/purchase"
             >
               <Button variant="contained" color="inherit">
-                Purchase
+                Purchased
+              </Button>
+            </NavLink>
+            <NavLink
+              style={{ textDecoration: "none", marginRight: "5px" }}
+              to="/dashboard"
+            >
+              <Button variant="contained" color="inherit">
+                Dashboard
               </Button>
             </NavLink>
             {user.email ? (

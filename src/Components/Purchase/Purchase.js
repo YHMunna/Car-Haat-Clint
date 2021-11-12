@@ -1,9 +1,10 @@
 import React from "react";
+import Navigation from "../Shared/Navigation/Navigation";
 
 const Purchase = () => {
   return (
     <div>
-      <h2>purchase</h2>
+      <Navigation></Navigation>
     </div>
   );
 };
