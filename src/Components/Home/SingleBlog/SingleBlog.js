@@ -1,20 +1,23 @@
 import React from "react";
-
 import Card from "@mui/material/Card";
-
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
-const SingleReview = ({ review }) => {
+import CardMedia from "@mui/material/CardMedia";
+
+const SingleBlog = ({ blog }) => {
   return (
     <Grid xs={12} md={12}>
       <Card sx={{ marginBottom: "10px" }}>
         <CardContent>
-          <Typography gutterBottom variant="subtitle2" component="div">
-            {review.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {review.review}
+          <CardMedia
+            component="img"
+            height="600"
+            image={blog.img}
+            alt="toyota car"
+          />
+          <Typography variant="body1" color="text.secondary">
+            {blog.details}
           </Typography>
         </CardContent>
       </Card>
@@ -22,4 +25,4 @@ const SingleReview = ({ review }) => {
   );
 };
 
-export default SingleReview;
+export default SingleBlog;

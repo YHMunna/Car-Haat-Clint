@@ -1,12 +1,12 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import PurchaseModal from "../../PurchaseModal/PurchaseModal";
-const SingleCarService = ({ car }) => {
+const SingleCarService = ({ car, setOrderSuccess }) => {
   const [openModal, setOpenModal] = React.useState(false);
   const handleModalOpen = () => setOpenModal(true);
   const handleModalClose = () => setOpenModal(false);
@@ -26,7 +26,7 @@ const SingleCarService = ({ car }) => {
                 {car.name}
               </Typography>
               <Typography variant="subtitle2" color="text.secondary">
-                Model Year: {car.modelYear}
+                Model Year: {car.model}
               </Typography>
               <Typography variant="subtitle2" color="text.secondary">
                 Price : {car.price}
@@ -47,6 +47,7 @@ const SingleCarService = ({ car }) => {
         car={car}
         openModal={openModal}
         handleModalClose={handleModalClose}
+        setOrderSuccess={setOrderSuccess}
       ></PurchaseModal>
     </>
   );

@@ -8,6 +8,8 @@ import AuthProvider from "./Context/AuthProvider";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import ExploreShop from "./Components/ExploreShop/ExploreShop";
 import Dashboard from "./Components/Dashboard/Dashboard/Dashboard";
+import Payment from "./Components/Dashboard/Payment/Payment";
+import Review from "./Components/Dashboard/Review/Review";
 
 function App() {
   return (
@@ -23,9 +25,12 @@ function App() {
           <Route path="/shop">
             <ExploreShop></ExploreShop>
           </Route>
-          <PrivateRoute path="/purchase">
-            <Purchase></Purchase>
-          </PrivateRoute>
+          <Route path="/pay">
+            <Payment></Payment>
+          </Route>
+          <Route path="/review">
+            <Review></Review>
+          </Route>
           <Route path="/dashboard">
             <Dashboard></Dashboard>
           </Route>

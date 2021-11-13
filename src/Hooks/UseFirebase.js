@@ -17,6 +17,7 @@ const UseFirebase = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState("");
+  const [admin, setAdmin] = useState(false);
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
   //google sign in
@@ -24,10 +25,11 @@ const UseFirebase = () => {
     setLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((result) => {
+        const user = result.user;
+        saveGoogleUser(user.email, user.displayName);
+        setAuthError("");
         const destination = location?.state?.from || "/";
         history.replace(destination);
-        const user = result.user;
-        setAuthError("");
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -41,10 +43,13 @@ const UseFirebase = () => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        setAuthError("");
         const newUser = { email, displayName: name };
         setUser(newUser);
-        setAuthError("");
-        //updateprofile
+        //send to the database
+        saveUser(email, name);
+
+        //updateprofile for firbase action
         updateProfile(auth.currentUser, {
           displayName: name,
         })
@@ -89,8 +94,38 @@ const UseFirebase = () => {
       .finally(() => {
         setLoading(false);
       });
-  }; //updateprofile
-
+  };
+  //save user to database for registration
+  const saveUser = (email, displayName) => {
+    const user = { email, displayName };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+  };
+  //save user to database for registration
+  const saveGoogleUser = (email, displayName) => {
+    const user = { email, displayName };
+    fetch("http://localhost:5000/users", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+  };
+  //check admin
+  useEffect(() => {
+    const url = `http://localhost:5000/users/${user.email}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setAdmin(data.admin);
+      });
+  }, [user.email]);
   //observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -112,6 +147,7 @@ const UseFirebase = () => {
     loading,
     authError,
     signInWithGoogle,
+    admin,
   };
 };
 export default UseFirebase;

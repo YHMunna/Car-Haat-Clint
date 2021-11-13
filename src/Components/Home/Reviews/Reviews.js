@@ -1,31 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container, Grid } from "@mui/material";
 import SingleReview from "../SingleReview/SingleReview";
-const reviews = [
-  {
-    id: 1,
-    name: "kudddus",
-    email: "kuddus@gmail.com",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, dolores illum assumenda exercitationem illo facilis doloribus nam voluptatibus magnam quis.",
-  },
-  {
-    id: 2,
-    name: "kudddus",
-    email: "kuddus@gmail.com",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, dolores illum assumenda exercitationem illo facilis doloribus nam voluptatibus magnam quis.",
-  },
-  {
-    id: 3,
-    name: "kudddus",
-    email: "kuddus@gmail.com",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, dolores illum assumenda exercitationem illo facilis doloribus nam voluptatibus magnam quis.",
-  },
-];
+
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        setReviews(data);
+      });
+  }, []);
   return (
     <Container>
       <h3

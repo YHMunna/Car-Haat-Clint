@@ -19,14 +19,59 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const PurchaseModal = ({ openModal, handleModalClose, car }) => {
+const PurchaseModal = ({
+  openModal,
+  handleModalClose,
+  setOrderSuccess,
+  car,
+}) => {
+  console.log(setOrderSuccess);
   const { name, price, modelYear, img } = car;
   const { user } = useAuth();
+  const initialBookingInfo = {
+    consumerName: user.displayName,
+    email: user.email,
+    phone: "",
+    address: "",
+  };
+  const [orderInfo, setOrderInfo] = React.useState(initialBookingInfo);
+
+  const handleOnBlur = (e) => {
+    const filed = e.target.name;
+    const value = e.target.value;
+
+    const newInfo = { ...orderInfo };
+    newInfo[filed] = value;
+    console.log(newInfo);
+    setOrderInfo(newInfo);
+  };
   const handleBookingOrder = (e) => {
-    alert("booked");
-    //collectdata
+    //collectdata usen end
+    const order = {
+      ...orderInfo,
+      carName: name,
+      price: price,
+      model: modelYear,
+      img: img,
+    };
     //send server
-    handleModalClose();
+    fetch("http://localhost:5000/orders", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          setOrderSuccess(true);
+          handleModalClose();
+        }
+        console.log(data);
+      });
+    // console.log(order);
+
     e.preventDefault();
   };
   return (
@@ -57,6 +102,7 @@ const PurchaseModal = ({ openModal, handleModalClose, car }) => {
               sx={{ mb: 2, width: "90%" }}
               disabled
               label="Car Name"
+              name="carName"
               id="outlined-size-small"
               defaultValue={name}
               size="small"
@@ -64,14 +110,16 @@ const PurchaseModal = ({ openModal, handleModalClose, car }) => {
             <TextField
               sx={{ mb: 2, width: "90%" }}
               label="Consumer Name"
+              onBlur={handleOnBlur}
+              name="consumerName"
               id="outlined-size-small"
               defaultValue={user.displayName}
               size="small"
             />
             <TextField
               sx={{ mb: 2, width: "90%" }}
-              disabled
               label="Email"
+              name="email"
               id="outlined-size-small"
               defaultValue={user.email}
               size="small"
@@ -79,6 +127,8 @@ const PurchaseModal = ({ openModal, handleModalClose, car }) => {
             <TextField
               sx={{ mb: 2, width: "90%" }}
               label="Phone"
+              onBlur={handleOnBlur}
+              name="phone"
               id="outlined-size-small"
               defaultValue="01"
               size="small"
@@ -86,6 +136,8 @@ const PurchaseModal = ({ openModal, handleModalClose, car }) => {
             <TextField
               sx={{ mb: 2, width: "90%" }}
               label="Address"
+              name="address"
+              onBlur={handleOnBlur}
               id="outlined-size-small"
               defaultValue="123,road,country"
               size="small"

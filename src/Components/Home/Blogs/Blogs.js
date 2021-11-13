@@ -1,17 +1,17 @@
-import { Alert, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import SingleCarService from "../SignleCarService/SingleCarService";
 
-const Services = () => {
-  const [cars, setCars] = useState([]);
+import { Container, Grid } from "@mui/material";
+
+import SingleBlog from "../SingleBlog/SingleBlog";
+
+const Blogs = () => {
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/homeCars")
+    fetch("http://localhost:5000/blogs")
       .then((res) => res.json())
       .then((data) => {
-        setCars(data);
+        setBlogs(data);
       });
   }, []);
   return (
@@ -24,21 +24,19 @@ const Services = () => {
           textAlign: "center",
         }}
       >
-        {" "}
-        Most Recent Car
+        Blogs
       </h3>
-
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {cars.map((car) => (
-          <SingleCarService key={cars.id} car={car}></SingleCarService>
+        {blogs.map((blog) => (
+          <SingleBlog key={blog._id} blog={blog}></SingleBlog>
         ))}
       </Grid>
     </Container>
   );
 };
 
-export default Services;
+export default Blogs;
