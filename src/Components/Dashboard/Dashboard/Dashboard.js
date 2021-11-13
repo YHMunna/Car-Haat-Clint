@@ -35,6 +35,7 @@ import AdminRoute from "../../AdminRoute/AdminRoute";
 import Payment from "../Payment/Payment";
 import Review from "../Review/Review";
 import AddBlog from "../AddBlog/AddBlog";
+import ManageOrder from "../ManagOrder/ManageOrder";
 const drawerWidth = 200;
 
 function Dashboard(props) {
@@ -98,6 +99,14 @@ function Dashboard(props) {
           >
             <Button variant="text" color="inherit">
               Add Product
+            </Button>
+          </NavLink>
+          <NavLink
+            style={{ textDecoration: "none", marginRight: "5px" }}
+            to={`${url}/manageOrder`}
+          >
+            <Button variant="text" color="inherit">
+              Manage Order
             </Button>
           </NavLink>
           <NavLink
@@ -218,6 +227,9 @@ function Dashboard(props) {
             </AdminRoute>
             <AdminRoute path={`${path}/addBlog`}>
               <AddBlog></AddBlog>
+            </AdminRoute>
+            <AdminRoute path={`${path}/manageOrder`}>
+              <ManageOrder></ManageOrder>
             </AdminRoute>
           </Switch>
         </Typography>

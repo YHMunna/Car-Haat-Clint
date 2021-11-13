@@ -55,7 +55,7 @@ const PurchaseModal = ({
       img: img,
     };
     //send server
-    fetch("http://localhost:5000/orders", {
+    fetch("https://secure-refuge-54069.herokuapp.com/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

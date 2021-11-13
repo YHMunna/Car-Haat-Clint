@@ -9,7 +9,7 @@ const AddBlog = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    fetch("http://localhost:5000/addBlog", {
+    fetch("https://secure-refuge-54069.herokuapp.com/addBlog", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),

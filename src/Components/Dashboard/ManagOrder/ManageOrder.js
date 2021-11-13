@@ -9,13 +9,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
-const Orders = () => {
+const ManageOrder = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
 
   //load data from db
   useEffect(() => {
-    const url = `https://secure-refuge-54069.herokuapp.com/orders?email=${user.email}`;
+    const url = "https://secure-refuge-54069.herokuapp.com/manageOrders";
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -80,4 +80,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default ManageOrder;

@@ -62,7 +62,7 @@ const ExploreShop = () => {
   const [cars, setCars] = useState([]);
   const [orderSuccess, setOrderSuccess] = useState(false);
   useEffect(() => {
-    fetch("http://localhost:5000/cars")
+    fetch("https://secure-refuge-54069.herokuapp.com/cars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data);

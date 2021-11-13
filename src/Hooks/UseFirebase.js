@@ -98,7 +98,7 @@ const UseFirebase = () => {
   //save user to database for registration
   const saveUser = (email, displayName) => {
     const user = { email, displayName };
-    fetch("http://localhost:5000/users", {
+    fetch("https://secure-refuge-54069.herokuapp.com/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -109,7 +109,7 @@ const UseFirebase = () => {
   //save user to database for registration
   const saveGoogleUser = (email, displayName) => {
     const user = { email, displayName };
-    fetch("http://localhost:5000/users", {
+    fetch("https://secure-refuge-54069.herokuapp.com/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -119,7 +119,7 @@ const UseFirebase = () => {
   };
   //check admin
   useEffect(() => {
-    const url = `http://localhost:5000/users/${user.email}`;
+    const url = `https://secure-refuge-54069.herokuapp.com/users/${user.email}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

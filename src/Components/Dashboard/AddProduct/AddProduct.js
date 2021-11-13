@@ -9,7 +9,7 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    fetch("http://localhost:5000/addCar", {
+    fetch("https://secure-refuge-54069.herokuapp.com/addCar", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
